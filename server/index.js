@@ -1,20 +1,21 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const cookieSession = require("cookie-session");
+const keys = require("./config/keys");
 const app = express();
-const port = 3000;
+app.use(bodyParser.json());
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey] //array bc it allows multiple cookies if we want
+  })
+);
+require("./routes/spotifyRoutes")(app);
+app.get("/", (req, res) => {
+  res.send({ hi: "there" });
+});
 
-var SpotifyWebApi = require('spotify-web-api-node');
-var spotifyApi = new SpotifyWebApi();
-
-app.get('/', (req, res) => {
-    track = spotifyApi.searchTracks('Love')
-    .then(function(data) {
-      console.log('Search by "Love"', data.body);
-    }, function(err) {
-      console.error(err);
-    });
-    res.send(track);
-})
-
-app.listen(port, () => {
-    console.log(`Listening at port ${port}`)
-})
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Listening at port ${PORT}`);
+});
