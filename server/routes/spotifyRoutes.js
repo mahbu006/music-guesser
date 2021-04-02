@@ -6,6 +6,24 @@ module.exports = app => {
     clientSecret: keys.spotifyClientSecret
   });
   spotifyApi.setAccessToken(keys.spotifyAccessToken);
+
+  app.get("/spotify/access_token", (req, res) => {
+    spotifyApi.clientCredentialsGrant().then(
+      function(data) {
+        console.log("The access token expires in " + data.body["expires_in"]);
+        console.log("The access token is " + data.body["access_token"]);
+        //fix this
+        spotifyApi.setAccessToken(data.body["access_token"]);
+      },
+      function(err) {
+        console.log(
+          "Something went wrong when retrieving an access token",
+          err
+        );
+      }
+    );
+  });
+
   app.get("/spotify/:genre", async (req, res) => {
     try {
       const data = await spotifyApi.searchTracks(`genre:${req.params.genre}`, {
@@ -41,22 +59,5 @@ module.exports = app => {
     } catch (err) {
       res.status(400).send({ error: err.body });
     }
-  });
-
-  app.get("/spotify/access_token", (req, res) => {
-    spotifyApi.clientCredentialsGrant().then(
-      function(data) {
-        console.log("The access token expires in " + data.body["expires_in"]);
-        console.log("The access token is " + data.body["access_token"]);
-        //fix this
-        spotifyApi.setAccessToken(data.body["access_token"]);
-      },
-      function(err) {
-        console.log(
-          "Something went wrong when retrieving an access token",
-          err
-        );
-      }
-    );
   });
 };
