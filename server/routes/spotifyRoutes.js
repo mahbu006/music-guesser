@@ -24,7 +24,7 @@ module.exports = app => {
     );
   });
 
-  app.get("/spotify/:genre", async (req, res) => {
+  app.get("/spotify/choices/:genre", async (req, res) => {
     try {
       const data = await spotifyApi.searchTracks(`genre:${req.params.genre}`, {
         limit: 4,
@@ -55,7 +55,7 @@ module.exports = app => {
           chosen: chosenCount === 1 ? true : false
         });
       });
-      res.status(200).send(result);
+      res.status(200).send(result.sort(() => Math.random() - 0.5));
     } catch (err) {
       res.status(400).send({ error: err.body });
     }
