@@ -24,7 +24,7 @@ module.exports = app => {
     );
   });
 
-  app.get("/spotify/:genre", async (req, res) => {
+  app.get("/spotify/choices/:genre", async (req, res) => {
     try {
       const data = await spotifyApi.searchTracks(`genre:${req.params.genre}`, {
         limit: 4,
