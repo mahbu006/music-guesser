@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const scoreSchema = new Schema({
+const singleScoreSchema = new Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users"
@@ -11,6 +11,7 @@ const scoreSchema = new Schema({
     type: Number,
     default: 0
   },
+  genre: String,
   timestamp: Number
 });
-mongoose.model("scores", scoreSchema);
+mongoose.model("singleScores", singleScoreSchema);

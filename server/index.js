@@ -5,8 +5,9 @@ const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const keys = require("./config/keys");
 require("./models/User");
-require("./models/Score");
+require("./models/SingleScore");
 const passport = require("passport");
+
 mongoose.connect(
   keys.mongoURI,
   {
@@ -30,6 +31,7 @@ app.use(
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+
 require("./routes/spotifyRoutes")(app);
 require("./routes/allAuthRoutes")(app);
 require("./routes/singlePlayerRoutes")(app);
