@@ -3,12 +3,22 @@ const mongoose = require("mongoose");
 const keys = require("../config/keys");
 const User = mongoose.model("users");
 module.exports = passport => {
-  passport.serializeUser((user, done) => {
+  /*  passport.serializeUser((user, done) => {
     done(null, user);
   });
 
   passport.deserializeUser((user, done) => {
     done(null, user);
+  }); */
+
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser((id, done) => {
+    User.findById(id).then(user => {
+      done(null, user);
+    });
   });
 
   passport.use(
@@ -29,7 +39,7 @@ module.exports = passport => {
             passportId: profile.id,
             username: profile.displayName,
             avi: profile.photos[0].value
-          });
+          }).save();
           return done(null, user);
         } catch (err) {
           console.log(err);
