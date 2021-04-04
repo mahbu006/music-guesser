@@ -1,6 +1,6 @@
+const passport = require("passport");
+const spotifyAuth = require("../services/spotifyAuth");
 module.exports = app => {
-  const passport = require("passport");
-  const spotifyAuth = require("../services/spotifyAuth");
   spotifyAuth(passport);
 
   app.get(
