@@ -16,6 +16,7 @@ mongoose.connect(
     console.log("Connected to mongo");
   }
 );
+mongoose.set("useFindAndModify", false);
 const app = express();
 
 app.use(bodyParser.json());

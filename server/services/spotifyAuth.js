@@ -27,7 +27,6 @@ module.exports = passport => {
           if (existingUser) return done(null, existingUser);
           const user = await new User({
             passportId: profile.id,
-            email: profile._json.email,
             username: profile.username,
             avi: profile.photos[0].value
           }).save();

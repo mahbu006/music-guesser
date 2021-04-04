@@ -1,7 +1,6 @@
 module.exports = app => {
   const passport = require("passport");
   const googleAuth = require("../services/googleAuth");
-
   googleAuth(passport);
 
   app.get(
