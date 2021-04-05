@@ -41,7 +41,7 @@ module.exports = passport => {
           }).save();
           return done(null, user);
         } catch (err) {
-          console.log(err);
+          res.status(400).send({ error: err });
         }
       }
     )

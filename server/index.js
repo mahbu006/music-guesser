@@ -35,6 +35,7 @@ app.use(passport.session());
 require("./routes/spotifyRoutes")(app);
 require("./routes/allAuthRoutes")(app);
 require("./routes/singlePlayerRoutes")(app);
+require("./routes/userRoutes")(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
