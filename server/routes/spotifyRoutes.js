@@ -1,13 +1,15 @@
 const keys = require("../config/keys");
+const spotifyToken = require("../middlewares/spotifyToken");
 module.exports = app => {
   var SpotifyWebApi = require("spotify-web-api-node");
   var spotifyApi = new SpotifyWebApi({
     clientId: keys.spotifyClientId,
     clientSecret: keys.spotifyClientSecret
   });
-  spotifyApi.setAccessToken(keys.spotifyAccessToken);
+  spotifyToken(app, spotifyApi);
+  //spotifyApi.setAccessToken(keys.spotifyAccessToken);
 
-  app.get("/spotify/access_token", (req, res) => {
+  /* app.get("/spotify/access_token", (req, res) => {
     spotifyApi.clientCredentialsGrant().then(
       function(data) {
         console.log("The access token expires in " + data.body["expires_in"]);
@@ -21,9 +23,10 @@ module.exports = app => {
         );
       }
     );
-  });
+  }); */
 
   app.get("/spotify/choices/:genre", async (req, res) => {
+    //console.log(req.cookies);
     try {
       const data = await spotifyApi.searchTracks(`genre:${req.params.genre}`, {
         limit: 4,
