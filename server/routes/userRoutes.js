@@ -13,11 +13,17 @@ module.exports = app => {
 
   app.get("/user/single/stats/all", async (req, res) => {
     try {
-      const gamesPlayed = await SingleScore.find({ userId: req.user._id });
-      //games played
-      //most played categories (show all categories played in descending order)
+      const gamesPlayed = await SingleScore.find({ 
+        userId: req.user._id,
+        value:  req.params.value,
+        genre: req.params.genre
+      })
+      res.status(200).send(gamesPlayed);
+      //most played genres (show all genres played in descending order)
     } catch (err) {
-      res.status(400).send({ error: "User stats couldn't be found." });
+      res
+        .status(400)
+        .send({ error: "User stats couldn't be found." });
     }
   });
 
