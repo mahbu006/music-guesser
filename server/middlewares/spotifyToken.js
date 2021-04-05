@@ -1,11 +1,11 @@
 module.exports = (app, spotifyApi) => {
   app.use(async (req, res, next) => {
-    var cookie = req.cookies.spotifyClientAccessToken1;
+    var cookie = req.cookies.spotifyClientAccessToken;
     if (cookie == undefined) {
       try {
         const data = await spotifyApi.clientCredentialsGrant();
         spotifyApi.setAccessToken(data.body["access_token"]);
-        res.cookie("spotifyClientAccessToken1", data.body["access_token"], {
+        res.cookie("spotifyClientAccessToken", data.body["access_token"], {
           maxAge: 3590000,
           httpOnly: true
         });
