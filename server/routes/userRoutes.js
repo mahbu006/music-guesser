@@ -13,13 +13,12 @@ module.exports = app => {
 
   app.get("/user/single/stats/all", async (req, res) => {
     try {
-      const gamesPlayed = await SingleScore.find({ 
-        userId: req.user._id,
-        value:  req.params.value,
-        genre: req.params.genre
-      })
+      // const gamesPlayed = await SingleScore.find({ userId: req.user._id })
+      const gamesPlayed = await SingleScore.aggregate([
+        { $group: { userId: req.user._id, genre: $genre, genre_count: { $sum: 1 } } },
+        { $sort: { genre_count: -1} }
+      ])
       res.status(200).send(gamesPlayed);
-      //most played genres (show all genres played in descending order)
     } catch (err) {
       res
         .status(400)
