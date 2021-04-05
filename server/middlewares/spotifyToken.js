@@ -4,8 +4,6 @@ module.exports = (app, spotifyApi) => {
     if (cookie == undefined) {
       try {
         const data = await spotifyApi.clientCredentialsGrant();
-        /* console.log("The access token expires in " + data.body["expires_in"]);
-        console.log("The access token is " + data.body["access_token"]); */
         spotifyApi.setAccessToken(data.body["access_token"]);
         res.cookie("spotifyClientAccessToken1", data.body["access_token"], {
           maxAge: 3590000,
