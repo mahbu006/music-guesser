@@ -13,20 +13,25 @@ module.exports = app => {
 
   app.get("/user/single/stats/all", async (req, res) => {
     try {
-      const gamesPlayed = await SingleScore.find({ userId: req.user._id });
-      //games played
-      //most played categories (show all categories played in descending order)
+      const gamesPlayed = await SingleScore.aggregate([
+        { $group: { userId: req.user._id, genre: $genre, genre_count: { $sum: 1 } } },
+        { $sort: { genre_count: -1} }
+      ])
+      res.status(200).send(gamesPlayed);
     } catch (err) {
-      res.status(400).send({ error: "User stats couldn't be found." });
+      res
+        .status(400)
+        .send({ error: "User stats couldn't be found." });
     }
   });
 
   app.get("/user/single/stats/genre/:genre", async (req, res) => {
     try {
-      const gamesPlayed = await SingleScore.find({
-        userId: req.user._id,
-        genre: req.params.genre
-      });
+      const gamesPlayed = await SingleScore.aggregate([
+        { $group: { userId: req.user._id, genre: req.params.genre, mode: $mode, mode_count: { $sum: 1 } } },
+        { $sort: { mode_count: -1} }
+      ])
+      res.status(200).send(gamesPlayed);
       //games played
       //highest score in each mode
     } catch (err) {
