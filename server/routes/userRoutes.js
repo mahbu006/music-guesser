@@ -4,7 +4,7 @@ const SingleScore = mongoose.model("singleScores");
 module.exports = app => {
   app.get("/user", async (req, res) => {
     try {
-      const user = await User.find({ id: req.user._id });
+      const user = await User.findOne({ _id: req.user._id });
       res.status(200).send(user);
     } catch (err) {
       res.status(400).send({ error: "User could not be found." });
