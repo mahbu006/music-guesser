@@ -14,7 +14,7 @@ module.exports = app => {
     passport.authenticate("google", { failureRedirect: "/" }),
     (req, res) => {
       //req.session.token = req.user.token;
-      res.redirect("/");
+      res.redirect("http://localhost:3000");
     }
   );
 };
