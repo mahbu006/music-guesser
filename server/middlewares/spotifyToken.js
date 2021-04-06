@@ -9,14 +9,10 @@ module.exports = (app, spotifyApi) => {
           maxAge: 3590000,
           httpOnly: true
         });
-        console.log("cookie created", data.body["access_token"]);
       } catch (err) {
-        console.log("Something went wrong", err);
+        console.log("Something went wrong with cookie", err);
       }
-    } else {
-      console.log("Cookie exists", cookie);
-      spotifyApi.setAccessToken(cookie);
-    }
+    } else spotifyApi.setAccessToken(cookie);
     next();
   });
 };
