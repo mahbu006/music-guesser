@@ -6,7 +6,7 @@ const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const keys = require("./config/keys");
 const passport = require("passport");
-
+const requireAuth = require("./middlewares/requireAuth");
 require("./models/User");
 require("./models/SingleScore");
 
@@ -33,12 +33,14 @@ app.use(
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({
-  origin: 'http://localhost:3000/' 
-}))
-
-require("./routes/spotifyRoutes")(app);
+app.use(
+  cors({
+    origin: "http://localhost:3000/"
+  })
+);
 require("./routes/allAuthRoutes")(app);
+requireAuth(app);
+require("./routes/spotifyRoutes")(app);
 require("./routes/singlePlayerRoutes")(app);
 require("./routes/userRoutes")(app);
 
