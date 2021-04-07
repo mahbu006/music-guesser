@@ -1,17 +1,16 @@
-import './App.css';
-import React from 'react';
+import React from "react";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <a href="http://localhost:5000/auth/google" class="button">   
+      <a href="http://localhost:5000/auth/google" class="button">
         <span class="button-label-google">Sign in with Google</span>
       </a>
-      <a href="http://localhost:5000/auth/spotify" class="button">   
+      <a href="http://localhost:5000/auth/spotify" class="button">
         <span class="button-label-spotify">Sign in with Spotify</span>
       </a>
     </div>
   );
-}
+};
 
 export default App;
