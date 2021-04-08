@@ -6,7 +6,8 @@ module.exports = app => {
   app.get(
     "/auth/google",
     passport.authenticate("google", {
-      scope: ["https://www.googleapis.com/auth/userinfo.profile"]
+      scope: ["https://www.googleapis.com/auth/userinfo.profile"],
+      showDialog: true
     })
   );
   app.get(
@@ -14,7 +15,7 @@ module.exports = app => {
     passport.authenticate("google", { failureRedirect: "/" }),
     (req, res) => {
       //req.session.token = req.user.token;
-      res.redirect("http://localhost:3000");
+      res.redirect("/user");
     }
   );
 };
