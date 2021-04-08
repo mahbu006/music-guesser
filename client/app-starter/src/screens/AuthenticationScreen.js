@@ -1,29 +1,37 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as WebBrowser from "expo-web-browser";
-import server from "../api/server";
+import * as Linking from "expo-linking";
 WebBrowser.dismissAuthSession();
 const AuthenticationScreen = ({ navigation }) => {
-  const [result, setResult] = useState("");
+  const [redirectData, setRedirectData] = useState(null);
   const handlePressButtonGoogle = async () => {
-    let result = await WebBrowser.openAuthSessionAsync(
-      "http://localhost:5000/auth/google",
-      "http://localhost:5000/user"
-    );
-    setResult(result);
-    /* await WebBrowser.maybeCompleteAuthSession(); */
+    try {
+      let result = await WebBrowser.openAuthSessionAsync(
+        "http://localhost:5000/auth/google"
+      );
+      let redirectData;
+      if (result.url) redirectData = Linking.parse(result.url);
+      setRedirectData(redirectData);
+      console.log(redirectData);
+    } catch (err) {
+      alert(err);
+      console.log(err);
+    }
   };
   const handlePressButtonSpotify = async () => {
-    let result = await WebBrowser.openAuthSessionAsync(
-      "http://localhost:5000/auth/spotify",
-      "http://localhost:5000/user"
-    );
-    setResult(result);
-    server
-      .get("/user")
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-    /* await WebBrowser.maybeCompleteAuthSession(); */
+    try {
+      let result = await WebBrowser.openAuthSessionAsync(
+        "http://localhost:5000/auth/spotify"
+      );
+      let redirectData;
+      if (result.url) redirectData = Linking.parse(result.url);
+      setRedirectData(redirectData);
+      console.log(redirectData);
+    } catch (err) {
+      alert(err);
+      console.log(err);
+    }
   };
   return (
     <View>
@@ -37,7 +45,6 @@ const AuthenticationScreen = ({ navigation }) => {
       >
         <Text>Sign in with Spotify</Text>
       </TouchableOpacity>
-      <Text>{result && JSON.stringify(result)}</Text>
     </View>
   );
 };
