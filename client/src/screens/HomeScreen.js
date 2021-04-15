@@ -12,7 +12,7 @@ const HomeScreen = ({ auth }) => {
       console.log(err);
     }
   };
-  getSpotify();
+
   return <Text style={styles.text}>Home</Text>;
 };
 

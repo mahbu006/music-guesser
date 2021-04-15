@@ -9,15 +9,15 @@ import ModeScreen from "./src/screens/ModeScreen";
 import GenreScreen from "./src/screens/GenreScreen";
 import TypeScreen from "./src/screens/TypeScreen";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
+import ChooseUsernameScreen from "./src/screens/ChooseUsernameScreen";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./src/reducers";
 const navigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
-  authFlow: createStackNavigator({
-    Authentication: AuthenticationScreen
-  }),
+  Authentication: AuthenticationScreen,
+  ChooseUsername: ChooseUsernameScreen,
   mainFlow: createBottomTabNavigator({
     Play: createStackNavigator({
       Home: HomeScreen,

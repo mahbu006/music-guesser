@@ -3,7 +3,9 @@ export default (state = null, action) => {
     case "SIGN_IN":
       return action.payload;
     case "FETCH_USER":
-      return action.payload;
+      return state;
+    case "ADD_USERNAME":
+      return state;
     default:
       return state;
   }
