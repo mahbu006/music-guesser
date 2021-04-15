@@ -15,7 +15,7 @@ module.exports = app => {
     "/auth/spotify/callback",
     passport.authenticate("spotify", { failureRedirect: "/" }),
     (req, res) => {
-      res.redirect("exp://127.0.0.1:19000" + `/?user=${req.user}`);
+      res.redirect("exp://127.0.0.1:19000" + `/?user=${req.user._id}`);
       //exp://192.168.86.160:19000
     }
   );

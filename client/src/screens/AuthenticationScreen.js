@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
+import { setUser } from "../actions";
+import { connect } from "react-redux";
 WebBrowser.dismissAuthSession();
-const AuthenticationScreen = ({ navigation }) => {
-  const [redirectData, setRedirectData] = useState(null);
+const AuthenticationScreen = ({ navigation, setUser }) => {
   const handlePressButtonGoogle = async () => {
     try {
       let result = await WebBrowser.openAuthSessionAsync(
         "http://localhost:5000/auth/google"
       );
-      let redirectData;
-      if (result.url) redirectData = Linking.parse(result.url);
-      setRedirectData(redirectData);
-      console.log(redirectData);
+      let data;
+      if (result.url) data = Linking.parse(result.url);
+      console.log(data.queryParams.user);
+      setUser(data.queryParams.user);
     } catch (err) {
       alert(err);
       console.log(err);
@@ -24,10 +25,10 @@ const AuthenticationScreen = ({ navigation }) => {
       let result = await WebBrowser.openAuthSessionAsync(
         "http://localhost:5000/auth/spotify"
       );
-      let redirectData;
-      if (result.url) redirectData = Linking.parse(result.url);
-      setRedirectData(redirectData);
-      console.log(redirectData);
+      let data;
+      if (result.url) data = Linking.parse(result.url);
+      console.log(data.queryParams.user);
+      setUser(data.queryParams.user);
     } catch (err) {
       alert(err);
       console.log(err);
@@ -60,5 +61,7 @@ const styles = StyleSheet.create({
     padding: 10
   }
 });
-
-export default AuthenticationScreen;
+const mapStateToProps = state => {
+  return {};
+};
+export default connect(mapStateToProps, { setUser })(AuthenticationScreen);

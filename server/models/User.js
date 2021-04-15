@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   passportId: String,
-  username: String,
+  username: {
+    type: String,
+    unique: true
+  },
   avi: String
 });
 mongoose.model("users", userSchema);

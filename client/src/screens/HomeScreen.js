@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
-const HomeScreen = () => {
+const HomeScreen = ({ auth }) => {
   return <Text style={styles.text}>Home</Text>;
 };
 
@@ -11,4 +12,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeScreen;
+HomeScreen.navigationOptions = {
+  title: "Tracks"
+};
+const mapStateToProps = state => {
+  return { auth: state.auth };
+};
+export default connect(mapStateToProps, {})(HomeScreen);

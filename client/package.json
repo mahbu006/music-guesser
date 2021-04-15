@@ -30,8 +30,10 @@
     "react-native-web": "^0.15.6",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
+    "react-navigation-tabs": "^2.11.0",
     "react-redux": "^7.2.3",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

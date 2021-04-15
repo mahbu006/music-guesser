@@ -2,6 +2,18 @@ const mongoose = require("mongoose");
 const User = mongoose.model("users");
 const SingleScore = mongoose.model("singleScores");
 module.exports = app => {
+  app.post("/user/username/update", async (req, res) => {
+    const { username } = req.body;
+    if (!username) res.status(400).send({ error: "Username required" });
+    try {
+      const currentUser = await User.findByIdAndUpdate(req.user._id, {
+        username: username
+      });
+      res.status(200).send(currentUser);
+    } catch (err) {
+      res.status(400).send({ error: err });
+    }
+  });
   app.get("/user", async (req, res) => {
     try {
       res.status(200).send(req.user);
