@@ -15,7 +15,6 @@ const AuthenticationScreen = ({ navigation, setUser }) => {
       if (result.url) data = Linking.parse(result.url);
       setUser(data.queryParams.user);
     } catch (err) {
-      alert(err);
       console.log(err);
     }
   };
@@ -28,7 +27,6 @@ const AuthenticationScreen = ({ navigation, setUser }) => {
       if (result.url) data = Linking.parse(result.url);
       setUser(data.queryParams.user);
     } catch (err) {
-      alert(err);
       console.log(err);
     }
   };

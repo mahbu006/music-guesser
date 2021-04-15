@@ -6,7 +6,7 @@ const ResolveAuthScreen = ({ tryLocalSignin }) => {
   useEffect(() => {
     tryLocalSignin();
   });
-  return <Text>hlasdf</Text>;
+  return <Text></Text>; //return loading circle
 };
 
 const styles = StyleSheet.create({});

@@ -6,6 +6,8 @@ export default (state = null, action) => {
       return state;
     case "ADD_USERNAME":
       return state;
+    case "SIGN_OUT":
+      return null;
     default:
       return state;
   }

@@ -10,6 +10,9 @@ import GenreScreen from "./src/screens/GenreScreen";
 import TypeScreen from "./src/screens/TypeScreen";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 import ChooseUsernameScreen from "./src/screens/ChooseUsernameScreen";
+import SettingsScreen from "./src/screens/SettingsScreen";
+import LeaderboardScreen from "./src/screens/LeaderboardScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -19,11 +22,16 @@ const navigator = createSwitchNavigator({
   Authentication: AuthenticationScreen,
   ChooseUsername: ChooseUsernameScreen,
   mainFlow: createBottomTabNavigator({
-    Play: createStackNavigator({
+    Home: createStackNavigator({
       Home: HomeScreen,
       Mode: ModeScreen,
       Genre: GenreScreen,
       Type: TypeScreen
+    }),
+    Leaderboard: LeaderboardScreen,
+    Profile: createStackNavigator({
+      Profile: ProfileScreen,
+      Settings: SettingsScreen
     })
   })
 });

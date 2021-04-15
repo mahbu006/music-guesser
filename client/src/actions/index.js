@@ -41,6 +41,18 @@ export const setUserName = name => async dispatch => {
   }
 };
 
+export const logout = () => async dispatch => {
+  try {
+    await AsyncStorage.removeItem("userId");
+    dispatch({ type: "SIGN_OUT" });
+    navigate("Authentication");
+  } catch (err) {
+    dispatch({
+      type: "ADD_ERROR_LOGOUT"
+    });
+  }
+};
+
 export const fetchUser = () => {
   return async dispatch => {
     const response = await server.get("/user");
