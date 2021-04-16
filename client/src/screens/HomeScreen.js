@@ -5,15 +5,6 @@ import { connect } from "react-redux";
 import server from "../api/server";
 import Spacer from "../components/Spacer";
 const HomeScreen = ({ auth, navigation }) => {
-  const getSpotify = async () => {
-    try {
-      const response = await server.get("/spotify/choices/pop");
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <React.Fragment>
       <Text style={styles.text}>Home</Text>

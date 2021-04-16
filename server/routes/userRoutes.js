@@ -11,7 +11,7 @@ module.exports = app => {
       });
       res.status(200).send(currentUser);
     } catch (err) {
-      res.status(402).send({ error: err });
+      res.status(400).send({ error: err });
     }
   });
   app.get("/user", async (req, res) => {

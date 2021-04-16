@@ -32,6 +32,7 @@ module.exports = app => {
         };
         if (chosenCount == 1 || song.preview !== null) chosenCount++;
         result.push({
+          index: index,
           song: song,
           artist: artist,
           album: album,

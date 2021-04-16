@@ -11,7 +11,6 @@ const singleScoreSchema = new Schema({
     type: Number,
     default: 0
   },
-  genre: String,
-  timestamp: Number
+  genre: String
 });
 mongoose.model("singleScores", singleScoreSchema);

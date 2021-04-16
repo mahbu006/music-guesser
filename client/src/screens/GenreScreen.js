@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import AppButton from "../components/AppButton";
-const GenreScreen = props => {
+const GenreScreen = ({ navigation }) => {
   return (
     /* 
     <RNPickerSelect
@@ -21,22 +21,46 @@ const GenreScreen = props => {
         title="Hip Hop"
         size="sm"
         backgroundColor="#007bff"
-        onPress={() => props.navigation.navigate("Mode")}
+        onPress={() =>
+          navigation.navigate("Mode", {
+            type: navigation.getParam("type"),
+            genre: "rap"
+          })
+        }
       />
       <AppButton
         title="Pop"
         size="sm"
         backgroundColor="#007bff"
-        onPress={() => props.navigation.navigate("Mode")}
+        onPress={() =>
+          navigation.navigate("Mode", {
+            type: navigation.getParam("type"),
+            genre: "pop"
+          })
+        }
       />
       <AppButton
         title="R&B"
         size="sm"
         backgroundColor="#007bff"
-        onPress={() => props.navigation.navigate("Mode")}
+        onPress={() =>
+          navigation.navigate("Mode", {
+            type: navigation.getParam("type"),
+            genre: "r-n-b"
+          })
+        }
       />
-      <AppButton title="Country" size="sm" backgroundColor="#007bff" />
-      <AppButton title="Electronic" size="sm" backgroundColor="#007bff" />
+      <AppButton
+        title="Country"
+        size="sm"
+        backgroundColor="#007bff"
+        onPress={() =>
+          navigation.navigate("Mode", {
+            type: navigation.getParam("type"),
+            genre: "country"
+          })
+        }
+      />
     </View>
   );
 };

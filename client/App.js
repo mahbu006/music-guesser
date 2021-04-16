@@ -13,10 +13,12 @@ import ChooseUsernameScreen from "./src/screens/ChooseUsernameScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import LeaderboardScreen from "./src/screens/LeaderboardScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import SinglePlayScreen from "./src/screens/SinglePlayer/SinglePlayScreen";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import reducers from "./src/reducers";
+import SingleScoreScreen from "./src/screens/SinglePlayer/SingleScoreScreen";
 const navigator = createSwitchNavigator({
   ResolveAuth: ResolveAuthScreen,
   Authentication: AuthenticationScreen,
@@ -33,7 +35,9 @@ const navigator = createSwitchNavigator({
       Profile: ProfileScreen,
       Settings: SettingsScreen
     })
-  })
+  }),
+  SinglePlay: SinglePlayScreen,
+  SingleScore: SingleScoreScreen
 });
 
 const App = createAppContainer(navigator);

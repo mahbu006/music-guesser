@@ -3,21 +3,35 @@ const User = mongoose.model("users");
 const SingleScore = mongoose.model("singleScores");
 module.exports = app => {
   app.post("/single/score", async (req, res) => {
-    const { mode, value, genre, timestamp } = req.body;
-    if (!mode || !timestamp)
-      res.status(400).send({ error: "All attributes are required" });
+    const { mode, value, genre } = req.body;
+    if (!mode || !genre)
+      return res.status(401).send({ error: "All attributes are required" });
     try {
-      const score = await new SingleScore({
+      const currentScore = await SingleScore.findOne({
         userId: req.user._id,
         mode: mode,
-        value: value,
-        genre: genre,
-        timestamp: timestamp
-      }).save();
-      res.send(score);
+        genre: genre
+      });
+      if (!currentScore) {
+        const score = await new SingleScore({
+          userId: req.user._id,
+          mode: mode,
+          value: value,
+          genre: genre
+        }).save();
+        res.status(200).send({ score: score });
+      } else if (value > currentScore.value) {
+        const newScore = await SingleScore.findOneAndUpdate(
+          { userId: req.user._id, mode: mode, genre: genre },
+          { $set: { value: value } },
+          { new: true }
+        );
+        res.status(200).send({ score: newScore });
+      }
+      res.status(200).send({ score: currentScore });
     } catch (err) {
       res
-        .status(400)
+        .status(402)
         .send({ error: "There was an error receiving the stats." });
     }
   });

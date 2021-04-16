@@ -14,14 +14,14 @@ mongoose.connect(
   keys.mongoURI,
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    userCreateIndex: true
+    useUnifiedTopology: true
   },
   () => {
     console.log("Connected to mongo");
   }
 );
 mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 const app = express();
 
 app.use(bodyParser.json());

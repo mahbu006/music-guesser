@@ -8,7 +8,7 @@ module.exports = app => {
     const user = await User.findById(token);
     req.user = user;
     if (!req.user)
-      return res.status(401).send({ error: "You must be logged in" });
+      return res.status(400).send({ error: "You must be logged in" });
     next();
   });
 };
